@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.atguigu.springcloud.dao.PaymentDao">
+    <!--增
+               前面有在application.yml配置了别名，所以这里只需要写Payment，而不需要写com.atguigu.com.atguigu.com.atguigu.com.atguigu.springcloud.entities.Payment
+
+               useGenerateKeys = true 的原因：
+                    因为我们插入数据库，必然会返回一个数字
+                        如果这个数字大于0，说明我们插入成功
+                        如果这个数据小于等于0，说明我们插入失败
+                        这也是我们create返回值为int的原因
+
+               keyProperty: 主键
+        -->
+
+    <insert id="create" parameterType="Payment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO payment(serial) values (#{serial});
+    </insert>
+
+
+    <!--查-->
+    <resultMap id="BaseResultMap" type="com.atguigu.springcloud.entities.Payment">
+        <id column="id" property="id" jdbcType="BIGINT"></id>
+        <result column="serial" property="serial" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <select id="getPaymentById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT * FROM payment where id=#{id};
+    </select>
+</mapper>

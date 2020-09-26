@@ -1,0 +1,31 @@
+package com.atguigu.springcloud.service;
+
+import com.atguigu.springcloud.entities.CommonResult;
+import com.atguigu.springcloud.entities.Payment;
+import feign.Param;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+/**
+ * @author Hedon Wang
+ * @create 2020-05-02 10:00
+ */
+@Component
+@FeignClient(value = "CLOUD-PAYMENT-SERVICE")
+public interface PaymentFeignService {
+
+    @GetMapping(value = "/payment/get/{id}")
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id);
+
+    //RequestBody要搭配PostMapping
+    @PostMapping(value = "/payment/create")
+    //consumer是客户端，提交有关payment过来，我们服务端要搞一个RequestBody才能接收
+    public CommonResult create(@RequestBody  Payment payment);
+
+    @GetMapping("/payment/feign/timeout")
+    public String paymentFeignTimeout();
+}
