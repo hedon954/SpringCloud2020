@@ -24,6 +24,8 @@ spring:
     virtual-host: /hedon
 
 
+
+
 #服务注册到Eureka
 eureka:
   client:
