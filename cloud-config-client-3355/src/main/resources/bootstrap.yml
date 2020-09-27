@@ -11,6 +11,17 @@ spring:
       profile: dev           #读取后缀名称
                              #上述3个综合起来 = master分支上的 config-dev.yml 配置文件被读取
       uri: http://localhost:3344   #配置中心地址
+
+
+#rabbitmq
+  rabbitmq:
+    host: 172.16.208.146
+    port: 5672
+    username: hedon
+    password: hedon
+    virtual-host: /hedon
+
+
 eureka:
   client:
     service-url:
